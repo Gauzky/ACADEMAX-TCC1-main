@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AcadeMax - Entrar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0c0e;
+            --bg-card: #15151a;
+            --bg-input: #1f2024;
+            --primary: #b5c7eb;
+            --primary-dark: #8da3cf;
+            --primary-glow: rgba(181, 199, 235, 0.2);
+            --text-main: #f2f5f7;
+            --text-muted: #6b6e76;
+            --border: rgba(255, 255, 255, 0.08);
+            --radius-md: 12px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .login-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .form-wrapper {
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+        .logo svg { height: 36px; width: 36px; }
+        .logo-text { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+        .logo-ade { color: #f2f5f7; }
+        .logo-max { color: #b5c7eb; }
+
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 30px; }
+
+        .social-btns { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
+
+        .divider { display: flex; align-items: center; text-align: center; color: var(--text-muted); margin: 20px 0; font-size: 13px; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
+        .divider::before { margin-right: 15px; }
+        .divider::after { margin-left: 15px; }
+
+        .input-group { margin-bottom: 18px; position: relative; }
+        .input-group label { display: block; font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 8px; padding-left: 4px; }
+        .input-group .input-wrap { position: relative; }
+        .input-group .input-icon {
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+            color: var(--text-muted); font-size: 15px; pointer-events: none; z-index: 1;
+        }
+        .input-group input {
+            width: 100%; background: var(--bg-input); border: 1px solid var(--border);
+            padding: 14px 16px 14px 42px; border-radius: var(--radius-md); color: var(--text-main);
+            font-size: 16px; transition: 0.2s;
+        }
+        .input-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+        .input-group input:focus + .input-icon,
+        .input-group .input-wrap:focus-within .input-icon { color: var(--primary); }
+        .input-group input::placeholder { color: #4a4d54; }
+        .input-group input[type="date"] { padding-left: 42px; color: var(--text-muted); }
+        /* toggle senha */
+        .toggle-pw { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); font-size: 15px; z-index: 2; transition: color 0.2s; }
+        .toggle-pw:hover { color: var(--primary); }
+
+        .grid-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .btn-primary {
+            width: 100%; background: var(--primary); color: #0b0c0e; border: none;
+            padding: 16px; border-radius: var(--radius-md); font-size: 16px; font-weight: 700;
+            cursor: pointer; transition: 0.2s; margin-top: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .links { text-align: center; margin-top: 25px; font-size: 14px; color: var(--text-muted); }
+        .links a { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
+
+        .hidden { display: none !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .showcase-side {
+            flex: 1.2;
+            background: radial-gradient(circle at top right, #1a1c20, #0b0c0e);
+            display: flex; justify-content: center; align-items: center;
+            position: relative; overflow: hidden;
+            border-left: 1px solid var(--border);
+        }
+
+        .phone-mockup {
+            width: 320px; height: 640px; background: var(--bg-main);
+            border: 8px solid #2a2b30; border-radius: 45px; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;
+            padding: 25px 20px;
+        }
+        .phone-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .phone-header span { font-weight: 800; font-size: 18px; }
+        .phone-header i { color: var(--primary); font-size: 20px; }
+
+        .mock-card { background: var(--bg-card); padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border); }
+        .mock-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 10px; }
+        .mock-text { font-size: 20px; font-weight: 700; margin-bottom: 15px; }
+        .mock-btn { height: 12px; width: 100px; background: var(--primary); border-radius: 4px; }
+
+        .mock-exercise { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .mock-icon { width: 40px; height: 40px; background: var(--bg-input); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+        .mock-lines { flex: 1; }
+        .mock-line { height: 8px; background: var(--bg-input); border-radius: 4px; margin-bottom: 5px; }
+        .mock-line.short { width: 60%; }
+
+        /* Toast */
+        #login-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4); z-index: 999; max-width: 90vw;
+            opacity: 0; transition: all 0.3s ease; pointer-events: none; font-size: 14px; font-weight: 500;
+        }
+        #login-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* Modal de senha */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 200; }
+        .modal-box {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 32px 28px; width: 92%; max-width: 400px;
+            animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+        }
+        .modal-box-icon {
+            width: 52px; height: 52px; background: rgba(181,199,235,0.1); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: var(--primary); margin-bottom: 18px;
+        }
+        .modal-box h2 { font-size: 21px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .modal-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 22px; }
+        .btn-secondary { flex: 1; background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 13px; border-radius: var(--radius-md); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); background: rgba(181,199,235,0.05); }
+        @keyframes slideUp { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        @media (max-width: 900px) {
+            .showcase-side { display: none; }
+            .login-side { padding: 40px 25px; justify-content: flex-start; padding-top: 80px; }
+            .logo { margin-bottom: 30px; }
+            .grid-2-cols { grid-template-columns: 1fr; gap: 0; }
+        }
+
+        @media (max-width: 380px) {
+            .logo-text { font-size: 24px; }
+            .logo svg { height: 30px; width: 30px; }
+            h1 { font-size: 24px; }
+        }
+
+        #google-btn-container, #google-btn-container-2 { width: 100% !important; display: flex !important; justify-content: center !important; }
+        #google-btn-container > div, #google-btn-container-2 > div { width: 100% !important; }
+
+        .theme-toggle-fixed { position: fixed; top: 20px; right: 20px; cursor: pointer; color: var(--text-muted); font-size: 22px; z-index: 100; transition: transform 0.2s; }
+        .theme-toggle-fixed:hover { transform: scale(1.1); color: var(--primary); }
+
+        /* MODO CLARO */
+        body.light-mode { background-color: #f4f6f8; color: #1e293b; }
+        body.light-mode .login-side { background-color: #f4f6f8; }
+        body.light-mode .showcase-side { background: radial-gradient(circle at top right, #e2e8f0, #f4f6f8); border-left: 1px solid rgba(0,0,0,0.08); }
+        body.light-mode .phone-mockup { background: #f4f6f8; border: 8px solid #d1d5db; }
+        body.light-mode .mock-card { background: #fff; border: 1px solid rgba(0,0,0,0.08); }
+        body.light-mode .mock-icon { background: #eef1f4; color: #64748b; }
+        body.light-mode .mock-line { background: #eef1f4; }
+        body.light-mode .mock-btn { background: #3b82f6; }
+        body.light-mode .btn-primary { background: #3b82f6; color: #fff; }
+        body.light-mode .btn-primary:hover { background: #2563eb; }
+        body.light-mode .input-group input { background: #fff; border: 1px solid rgba(0,0,0,0.1); color: #1e293b; }
+        body.light-mode .input-group input::placeholder { color: #94a3b8; }
+        body.light-mode .modal-box { background: #fff; }
+        body.light-mode #login-toast { background: #fff; border: 1px solid rgba(0,0,0,0.08); color: #1e293b; }
+        body.light-mode .logo-ade { color: #1e293b; }
+        body.light-mode .logo-max { color: #3b82f6; }
+        body.light-mode .logo svg path[stroke="#b5c7eb"] { stroke: #3b82f6; }
+        body.light-mode .logo svg path[stroke="#f2f5f7"] { stroke: #1e293b; }
+        body.light-mode .logo svg rect[fill="#b5c7eb"] { fill: #3b82f6; }
+    </style>
+</head>
+<body>
+
+    <div class="theme-toggle-fixed" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i></div>
+
+    <!-- Toast -->
+    <div id="login-toast"><i id="toast-icon" class="fa-solid fa-circle-info" style="font-size:18px;flex-shrink:0;"></i><span id="toast-msg"></span></div>
+
+    <!-- Modal: Redefinir senha (abre via link do email) -->
+    <div id="reset-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-box-icon"><i class="fa-solid fa-key"></i></div>
+            <h2>Nova senha</h2>
+            <p>Digite e confirme sua nova senha abaixo.</p>
+            <div class="input-group">
+                <label>Nova senha</label>
+                <div class="input-wrap" style="position:relative;">
+                    <input type="password" id="reset-password" placeholder="Mínimo 6 caracteres">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('reset-password', this)"></i>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom:0;">
+                <label>Confirmar nova senha</label>
+                <div class="input-wrap" style="position:relative;">
+                    <input type="password" id="reset-confirm" placeholder="Repita a senha">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('reset-confirm', this)"></i>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" id="reset-save-btn" style="margin-top:0;" onclick="saveNewPassword()">
+                    <i class="fa-solid fa-check"></i> Salvar senha
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Esqueci minha senha -->
+    <div id="forgot-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-box-icon"><i class="fa-solid fa-lock"></i></div>
+            <h2>Recuperar senha</h2>
+            <p>Digite seu e-mail cadastrado. Se existir uma conta, enviaremos as instruções de redefinição.</p>
+            <div class="input-group" style="margin-bottom:0;">
+                <label>E-mail</label>
+                <div class="input-wrap">
+                    <input type="email" id="forgot-email" placeholder="seu@email.com">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeForgotModal()">Cancelar</button>
+                <button class="btn-primary" id="forgot-send-btn" style="margin-top:0;flex:1.5;" onclick="sendForgotPassword()"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-side">
+        <div class="form-wrapper">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.5714 12C20.5714 14.3457 19.6393 16.5942 17.9806 18.2529C16.3219 19.9116 14.0734 20.8437 11.7276 20.8437C9.38189 20.8437 7.13337 19.9116 5.47466 18.2529C3.81595 16.5942 2.88379 14.3457 2.88379 12" stroke="#b5c7eb" stroke-width="2.5" stroke-linecap="round"/><path d="M2.88379 12C2.88379 9.65428 3.81595 7.40576 5.47466 5.74705C7.13337 4.08834 9.38189 3.15619 11.7276 3.15619C14.0734 3.15619 16.3219 4.08834 17.9806 5.74705C19.6393 7.40576 20.5714 9.65428 20.5714 12" stroke="#f2f5f7" stroke-width="2.5" stroke-linecap="round"/><rect x="9.5" y="2" width="4" height="20" rx="2" fill="#b5c7eb"/></svg>
+                <div class="logo-text"><span class="logo-ade">ACADE</span><span class="logo-max">MAX</span></div>
+            </div>
+
+            <div id="login-view">
+                <h1>Entrar</h1>
+                <div class="social-btns"><div id="google-btn-container" style="display:flex;justify-content:center;margin-bottom:12px;"></div></div>
+                <div class="divider">ou</div>
+                <form onsubmit="fazerLogin(event)">
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        <div class="input-wrap">
+                            <input type="email" id="login-email" placeholder="Seu melhor e-mail" required>
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Senha</label>
+                        <div class="input-wrap" style="position:relative;">
+                            <input type="password" id="login-password" placeholder="Sua senha" required>
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('login-password', this)"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" id="login-btn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar</button>
+                </form>
+                <div class="links"><a onclick="openForgotModal()">Esqueci minha senha</a> &nbsp;•&nbsp; Não tem uma conta? <a onclick="toggleAuthView('register')">Cadastre-se</a></div>
+            </div>
+
+            <div id="register-view" class="hidden">
+                <h1>Cadastre-se</h1>
+                <div class="social-btns"><div id="google-btn-container-2" style="display:flex;justify-content:center;"></div></div>
+                <div class="divider">ou preencha os dados</div>
+                <form onsubmit="registrarUsuario(event)">
+                    <div class="input-group">
+                        <label>Nome completo</label>
+                        <div class="input-wrap">
+                            <input type="text" id="reg-name" placeholder="Ex: João da Silva" required>
+                            <i class="fa-solid fa-user input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        <div class="input-wrap">
+                            <input type="email" id="reg-email" placeholder="Ex: joao@email.com" required>
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Data de Nascimento</label>
+                        <div class="input-wrap">
+                            <input type="date" id="reg-birthdate" required>
+                            <i class="fa-solid fa-calendar input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="grid-2-cols">
+                        <div class="input-group">
+                            <label>Senha</label>
+                            <div class="input-wrap" style="position:relative;">
+                                <input type="password" id="reg-password" placeholder="Mín. 6 dígitos" required>
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('reg-password', this)"></i>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Confirmar</label>
+                            <div class="input-wrap" style="position:relative;">
+                                <input type="password" id="reg-confirm-password" placeholder="Repita" required>
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <i class="fa-solid fa-eye toggle-pw" onclick="togglePw('reg-confirm-password', this)"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" id="register-btn"><i class="fa-solid fa-user-plus"></i> Criar Conta</button>
+                </form>
+                <div class="links">Já tem uma conta? <a onclick="toggleAuthView('login')">Entrar</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="showcase-side">
+        <div class="phone-mockup">
+            <div class="phone-header"><span>Olá, Atleta 💪</span><i class="fa-solid fa-bell"></i></div>
+            <div class="mock-card"><div class="mock-title">TREINO DE HOJE</div><div class="mock-text">Treino A - Peito</div><div class="mock-btn"></div></div>
+            <div class="mock-card">
+                <div class="mock-title">EVOLUÇÃO</div>
+                <div class="mock-exercise"><div class="mock-icon"><i class="fa-solid fa-dumbbell"></i></div><div class="mock-lines"><div class="mock-line"></div><div class="mock-line short"></div></div></div>
+                <div class="mock-exercise"><div class="mock-icon"><i class="fa-solid fa-chart-line"></i></div><div class="mock-lines"><div class="mock-line"></div><div class="mock-line short"></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="g_id_onload" data-client_id="681505626161-vn9aiah8dd700qdsb4bolt9qanji49u1.apps.googleusercontent.com" data-callback="handleCredentialResponse" data-auto_prompt="false" style="display:none;"></div>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+        const API = 'https://academax-backend.onrender.com/api';
+
+        // === TOAST ===
+        function showToast(message, type = 'info') {
+            const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info', warning: 'fa-triangle-exclamation' };
+            const colors = { success: '#10b981', error: '#ef4444', info: '#b5c7eb', warning: '#f59e0b' };
+            const toast = document.getElementById('login-toast');
+            document.getElementById('toast-icon').className = `fa-solid ${icons[type]}`;
+            document.getElementById('toast-icon').style.color = colors[type];
+            document.getElementById('toast-msg').innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // === LOADING ===
+        function setLoading(btn, loading, originalHTML) {
+            if (loading) { btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Aguarde...'; btn.disabled = true; }
+            else { btn.innerHTML = originalHTML; btn.disabled = false; }
+        }
+
+        // === TEMA ===
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('academax_theme', isLight ? 'light' : 'dark');
+            document.querySelector('.theme-toggle-fixed i').className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        }
+        if (localStorage.getItem('academax_theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.querySelector('.theme-toggle-fixed i').className = 'fa-solid fa-moon';
+        }
+
+        // Verifica se tem token de reset na URL e abre o modal automaticamente
+        const urlParams = new URLSearchParams(window.location.search);
+        const resetToken = urlParams.get('reset');
+        if (resetToken) {
+            document.getElementById('reset-modal').classList.remove('hidden');
+        }
+
+        async function saveNewPassword() {
+            const password = document.getElementById('reset-password').value;
+            const confirm  = document.getElementById('reset-confirm').value;
+            if (!password || !confirm) { showToast("Preencha os dois campos.", "warning"); return; }
+            if (password !== confirm)  { showToast("As senhas não coincidem!", "error"); return; }
+            if (password.length < 6)   { showToast("Mínimo 6 caracteres.", "warning"); return; }
+            const btn = document.getElementById('reset-save-btn');
+            const originalHTML = btn.innerHTML;
+            setLoading(btn, true);
+            try {
+                const res = await fetch(`${API}/reset-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: resetToken, newPassword: password })
+                });
+                const data = await res.json();
+                if (data.error) { showToast(data.error, "error"); setLoading(btn, false, originalHTML); return; }
+                document.getElementById('reset-modal').classList.add('hidden');
+                showToast("Senha redefinida com sucesso! Faça login.", "success");
+                // Limpa o token da URL
+                window.history.replaceState({}, document.title, '/login.html');
+            } catch (err) {
+                showToast("Erro de conexão.", "error");
+            }
+            setLoading(btn, false, originalHTML);
+        }
+
+        // === ALTERNAR VIEWS ===
+        function toggleAuthView(view) {
+            const loginView = document.getElementById('login-view');
+            const registerView = document.getElementById('register-view');
+            if (view === 'register') { loginView.classList.add('hidden'); registerView.classList.remove('hidden'); }
+            else { loginView.classList.remove('hidden'); registerView.classList.add('hidden'); }
+        }
+
+        // === GOOGLE OAuth ===
+        window.onload = function () {
+            if (window.google) {
+                google.accounts.id.initialize({ client_id: '681505626161-vn9aiah8dd700qdsb4bolt9qanji49u1.apps.googleusercontent.com', callback: handleCredentialResponse });
+                google.accounts.id.renderButton(document.getElementById("google-btn-container"), { theme: "outline", size: "large", type: "standard", text: "signin_with", shape: "rectangular", width: 350, logo_alignment: "left" });
+                google.accounts.id.renderButton(document.getElementById("google-btn-container-2"), { theme: "outline", size: "large", type: "standard", text: "signup_with", shape: "rectangular", width: 350, logo_alignment: "left" });
+            }
+        };
+
+        function handleCredentialResponse(response) {
+            const data = JSON.parse(atob(response.credential.split('.')[1]));
+            fetch(`${API}/google-login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: data.name, email: data.email, picture: data.picture }) })
+            .then(res => res.json())
+            .then(user => {
+                if (user.error) { showToast(user.error, 'error'); return; }
+                localStorage.setItem('academax_user', JSON.stringify(user));
+                window.location.href = 'index.html';
+            })
+            .catch(() => showToast("Erro ao conectar. O servidor pode estar iniciando...", "warning"));
+        }
+
+        // === LOGIN ===
+        function fazerLogin(event) {
+            event.preventDefault();
+            const btn = document.getElementById('login-btn');
+            const originalHTML = btn.innerHTML;
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            setLoading(btn, true);
+            fetch(`${API}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) { showToast(data.error, 'error'); setLoading(btn, false, originalHTML); return; }
+                localStorage.setItem('academax_user', JSON.stringify(data));
+                window.location.href = 'index.html';
+            })
+            .catch(() => { showToast("Erro de conexão.", "error"); setLoading(btn, false, originalHTML); });
+        }
+
+        // === CADASTRO ===
+        function registrarUsuario(event) {
+            event.preventDefault();
+            const btn = document.getElementById('register-btn');
+            const originalHTML = btn.innerHTML;
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const birthdate = document.getElementById('reg-birthdate').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            if (password !== confirmPassword) { showToast("As senhas não coincidem!", "error"); return; }
+            if (password.length < 6) { showToast("A senha deve ter no mínimo 6 caracteres.", "warning"); return; }
+            setLoading(btn, true);
+            fetch(`${API}/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, password, birthdate }) })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) { showToast(data.error, 'error'); setLoading(btn, false, originalHTML); return; }
+                localStorage.setItem('academax_user', JSON.stringify(data));
+                window.location.href = 'index.html';
+            })
+            .catch(() => { showToast("Erro de conexão.", "error"); setLoading(btn, false, originalHTML); });
+        }
+
+        // === TOGGLE MOSTRAR/OCULTAR SENHA ===
+        function togglePw(inputId, icon) {
+            const input = document.getElementById(inputId);
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            icon.className = isHidden ? 'fa-solid fa-eye-slash toggle-pw' : 'fa-solid fa-eye toggle-pw';
+        }
+
+        // === ESQUECI MINHA SENHA ===
+        function openForgotModal() { document.getElementById('forgot-modal').classList.remove('hidden'); }
+        function closeForgotModal() { document.getElementById('forgot-modal').classList.add('hidden'); document.getElementById('forgot-email').value = ''; }
+
+        async function sendForgotPassword() {
+            const email = document.getElementById('forgot-email').value.trim();
+            if (!email) { showToast("Digite seu e-mail.", "warning"); return; }
+            const btn = document.getElementById('forgot-send-btn');
+            const originalHTML = btn.innerHTML;
+            setLoading(btn, true);
+            try {
+                const res = await fetch(`${API}/forgot-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await res.json();
+                closeForgotModal();
+                showToast(data.message || "Instruções enviadas para o seu e-mail!", "success");
+            } catch (err) {
+                showToast("Erro de conexão. Tente novamente.", "error");
+            }
+            setLoading(btn, false, originalHTML);
+        }
+    </script>
+</body>
+</html>
